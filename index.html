@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Innosvet — освещение для дома и бизнеса</title>
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --surface:#ffffff;
+      --surface-2:#f4f7fb;
+      --text:#101828;
+      --muted:#667085;
+      --line:#e4e7ec;
+      --accent:#ffd54f;
+      --accent-strong:#f4b400;
+      --dark:#111827;
+      --shadow:0 20px 50px rgba(16,24,40,.08);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(255,213,79,.18), transparent 24%),
+        linear-gradient(180deg,#fcfdff 0%, #f5f7fb 100%);
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .wrap{max-width:1280px;margin:0 auto;padding:0 22px}
+    .header{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(10px);
+      background:rgba(255,255,255,.88);
+      border-bottom:1px solid var(--line);
+    }
+    .header-inner{
+      min-height:78px;
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .logo{font-size:30px;font-weight:900;letter-spacing:-1px}
+    .logo span{color:var(--accent-strong)}
+    .nav{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+    .hero{padding:34px 0 22px}
+    .hero-box{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:24px;
+      background:linear-gradient(135deg,#ffffff 0%, #f4f8fd 56%, #fff8d9 100%);
+      border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .hero-copy{padding:42px}
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
+      background:#fff;border:1px solid var(--line);color:var(--accent-strong);font-size:13px;font-weight:800;margin-bottom:18px;
+    }
+    h1{margin:0 0 16px;font-size:clamp(48px,7vw,82px);line-height:.93;letter-spacing:-2.7px;max-width:700px}
+    .lead{margin:0 0 26px;color:var(--muted);line-height:1.82;font-size:18px;max-width:620px}
+    .hero-actions,.product-actions,.contact-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 20px;border-radius:16px;
+      font-weight:800;border:1px solid var(--line);background:#fff;
+    }
+    .btn.primary{background:var(--accent);border-color:transparent;color:#111}
+    .btn.dark{background:var(--dark);border-color:transparent;color:#fff}
+    .hero-visual{
+      min-height:500px;position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255,255,255,.8), transparent 15%),
+        radial-gradient(circle at 70% 25%, rgba(255,213,79,.55), transparent 22%),
+        linear-gradient(135deg,#eef3f8 0%, #d8e1eb 48%, #becbd9 100%);
+    }
+    .hero-visual img{width:100%;height:100%;object-fit:cover}
+    .hero-visual:after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, transparent 45%, rgba(17,24,39,.18));
+      pointer-events:none;
+    }
+    .glass{
+      position:absolute;left:34px;right:34px;bottom:28px;z-index:2;
+      padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.76);
+      backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.8);
+    }
+    .glass strong{display:block;font-size:22px;margin-bottom:6px}
+    .glass span{font-size:14px;color:#475467;line-height:1.7}
+    .section{padding:22px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
+    .section-head h2{margin:0;font-size:36px;letter-spacing:-1px}
+    .section-head p{margin:0;max-width:620px;color:var(--muted);line-height:1.75}
+    .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .cat{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+    .cat-badge{width:52px;height:52px;border-radius:16px;background:#fff8d8;display:flex;align-items:center;justify-content:center;font-size:22px}
+    .cat strong{display:block;margin-top:16px;font-size:19px}
+    .cat span{display:block;color:var(--muted);font-size:14px;line-height:1.6;margin-top:6px}
+    .offer{
+      display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:28px;border-radius:28px;
+      background:linear-gradient(135deg,#121826 0%, #1d2939 100%);color:#fff;box-shadow:var(--shadow);
+    }
+    .offer strong{display:block;font-size:32px;margin-bottom:8px}
+    .offer p{margin:0;color:#d0d5dd;line-height:1.8}
+    .offer .btn{background:#fff;color:#111827}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .product{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+    .product-photo{height:245px;position:relative;background:#eef2f7}
+    .product-photo img{width:100%;height:100%;object-fit:cover}
+    .sale-badge{
+      position:absolute;top:14px;left:14px;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.92);
+      font-size:12px;font-weight:900;color:var(--accent-strong);
+    }
+    .product-body{padding:18px}
+    .product-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}
+    .product-title{font-size:22px;font-weight:900;letter-spacing:-.4px}
+    .price{white-space:nowrap;font-size:18px;font-weight:900;color:var(--accent-strong)}
+    .desc{color:var(--muted);line-height:1.72;font-size:14px;margin-bottom:14px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .pill{padding:7px 10px;border-radius:999px;background:#f8fafc;border:1px solid var(--line);font-size:12px;font-weight:800;color:#475467}
+    .small-btn{min-height:42px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:800}
+    .small-btn.primary{background:var(--accent);border-color:transparent;color:#111}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .about-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+    .about-card h3{margin-top:0;font-size:28px}
+    .about-card p{margin:0;color:var(--muted);line-height:1.82}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:20px;padding:18px}
+    .stat strong{display:block;font-size:30px;color:var(--accent-strong);margin-bottom:8px}
+    .stat span{color:var(--muted);font-size:14px;line-height:1.7}
+    .contact-box{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+    .contact-box h3{margin:0 0 10px;font-size:30px}
+    .contact-box p{margin:0;color:var(--muted);line-height:1.8}
+    .address{
+      margin-top:12px;padding:12px 14px;border-radius:16px;background:#fff8d8;border:1px solid #ffeaa1;
+      color:#6b5900;font-weight:700;line-height:1.6;font-size:14px;
+    }
+    .footer{padding:28px 0 42px;color:var(--muted);text-align:center;font-size:14px}
+    @media (max-width:980px){
+      .hero-box,.categories,.products,.about-grid,.contact-box,.offer,.stats{grid-template-columns:1fr}
+      .section-head{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap header-inner">
+    <div class="logo">inno<span>svet</span></div>
+    <nav class="nav">
+      <a href="#categories">Категории</a>
+      <a href="#hits">Популярное</a>
+      <a href="#about">О компании</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-box">
+      <div class="hero-copy">
+        <div class="badge">освещение для дома и бизнеса</div>
+        <h1>Современные решения света для каждого интерьера</h1>
+        <p class="lead">Люстры, светильники и LED‑модели для гостиной, спальни, кухни и коммерческих помещений. Подберём подходящий вариант по стилю, размеру и бюджету.</p>
+        <div class="hero-actions">
+          <a href="#categories" class="btn primary">Смотреть категории</a>
+          <a href="#hits" class="btn">Популярные модели</a>
+          <a href="#contacts" class="btn dark">Связаться</a>
+        </div>
+        <div class="address">Республика Дагестан, г. Хасавюрт, Махачкалинское шоссе, не доезжая до Дылымского кольца</div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://images.pexels.com/photos/7166647/pexels-photo-7166647.jpeg?cs=srgb&dl=pexels-artbovich-7166647.jpg&fm=jpg" alt="Интерьер с люстрой">
+        <div class="glass">
+          <strong>innosvet</strong>
+          <span>Подбор освещения под интерьер, консультация по выбору и удобный заказ через мессенджеры.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="section-head">
+      <h2>Категории</h2>
+      <p>Выберите нужный тип освещения для дома, квартиры, офиса или коммерческого пространства.</p>
+    </div>
+    <div class="categories">
+      <div class="cat"><div class="cat-badge">💡</div><div><strong>Люстры для гостиной</strong><span>Крупные модели для центрального освещения и акцентного интерьера.</span></div></div>
+      <div class="cat"><div class="cat-badge">✨</div><div><strong>Люстры для спальни</strong><span>Модели с мягким светом для уютной и спокойной атмосферы.</span></div></div>
+      <div class="cat"><div class="cat-badge">🔆</div><div><strong>Светильники для кухни</strong><span>Практичные и современные решения для кухни и обеденной зоны.</span></div></div>
+      <div class="cat"><div class="cat-badge">⚡</div><div><strong>LED и современный свет</strong><span>Актуальные модели для минимализма, современных интерьеров и бизнеса.</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="offer">
+      <div>
+        <strong>Новинки и акции месяца</strong>
+        <p>Следите за актуальными моделями и специальными предложениями. Подберём освещение под ваш интерьер и задачи.</p>
+      </div>
+      <a href="#contacts" class="btn">Получить консультацию</a>
+    </div>
+  </section>
+
+  <section class="section" id="hits">
+    <div class="section-head">
+      <h2>Популярные модели</h2>
+      <p>Самые востребованные варианты для гостиной, спальни и современного интерьера.</p>
+    </div>
+    <div class="products">
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/17478199/pexels-photo-17478199.jpeg?cs=srgb&dl=pexels-francogarciafilms-17478199.jpg&fm=jpg" alt="Современная люстра">
+          <div class="sale-badge">Популярно</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Modern 01</div><div class="price">12 900 ₽</div></div>
+          <div class="desc">Современная LED‑люстра для гостиной или спальни с мягким равномерным светом.</div>
+          <div class="meta"><span class="pill">LED</span><span class="pill">Гостиная</span><span class="pill">Хит</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">WhatsApp</a></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/16249145/pexels-photo-16249145.jpeg?cs=srgb&dl=pexels-curtis-adams-1694007-16249145.jpg&fm=jpg" alt="Премиальная люстра">
+          <div class="sale-badge">Новинка</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Premium 02</div><div class="price">18 500 ₽</div></div>
+          <div class="desc">Эффектная модель для зала, кухни‑гостиной и интерьера в современном стиле.</div>
+          <div class="meta"><span class="pill">Премиум</span><span class="pill">Большая</span><span class="pill">Зал</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">Telegram</a></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/6980726/pexels-photo-6980726.jpeg?cs=srgb&dl=pexels-artbovich-6980726.jpg&fm=jpg" alt="Декоративная люстра">
+          <div class="sale-badge">Выбор</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Crystal 03</div><div class="price">24 900 ₽</div></div>
+          <div class="desc">Акцентная люстра для дорогого интерьера, которая станет главным элементом пространства.</div>
+          <div class="meta"><span class="pill">Crystal</span><span class="pill">Премиум</span><span class="pill">Акцент</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">WhatsApp</a></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/5813830/pexels-photo-5813830.jpeg?cs=srgb&dl=pexels-tima-miroshnichenko-5813830.jpg&fm=jpg" alt="Подвесные светильники">
+          <div class="sale-badge">Минимализм</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Loft 04</div><div class="price">11 300 ₽</div></div>
+          <div class="desc">Лаконичные подвесные светильники для кухни, кабинета и современных пространств.</div>
+          <div class="meta"><span class="pill">Loft</span><span class="pill">Минимализм</span><span class="pill">Кухня</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">Telegram</a></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/14793731/pexels-photo-14793731.jpeg?cs=srgb&dl=pexels-qaarif-14793731.jpg&fm=jpg" alt="Классическая люстра">
+          <div class="sale-badge">Классика</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Classic 05</div><div class="price">15 700 ₽</div></div>
+          <div class="desc">Классическая люстра с тёплым светом для уютной гостиной, спальни или зала.</div>
+          <div class="meta"><span class="pill">Классика</span><span class="pill">Тёплый свет</span><span class="pill">Дом</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">WhatsApp</a></div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-photo">
+          <img src="https://images.pexels.com/photos/7166647/pexels-photo-7166647.jpeg?cs=srgb&dl=pexels-artbovich-7166647.jpg&fm=jpg" alt="Освещение для интерьера">
+          <div class="sale-badge">Для интерьера</div>
+        </div>
+        <div class="product-body">
+          <div class="product-top"><div class="product-title">Innosvet Interior 06</div><div class="price">19 900 ₽</div></div>
+          <div class="desc">Решение для проектов, где важно связать светильник с общей стилистикой пространства.</div>
+          <div class="meta"><span class="pill">Интерьер</span><span class="pill">Проект</span><span class="pill">Современный</span></div>
+          <div class="product-actions"><a href="#" class="small-btn primary">Заказать</a><a href="#" class="small-btn">Telegram</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <h2>О компании</h2>
+      <p>Помогаем подобрать освещение для квартиры, дома, офиса и коммерческих помещений.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Innosvet</h3>
+        <p>Магазин современного освещения с удобным подбором, понятным каталогом и консультацией по выбору. Поможем подобрать модель под площадь помещения, стиль интерьера и бюджет.</p>
+        <div class="address">Республика Дагестан, г. Хасавюрт, Махачкалинское шоссе, не доезжая до Дылымского кольца</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>100+</strong><span>моделей можно удобно разместить по категориям и карточкам.</span></div>
+        <div class="stat"><strong>24/7</strong><span>заявки и сообщения можно принимать в любое время.</span></div>
+        <div class="stat"><strong>Быстро</strong><span>клиент сразу видит нужный раздел и способ связи.</span></div>
+        <div class="stat"><strong>Удобно</strong><span>сайт хорошо читается с телефона и на компьютере.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contacts">
+    <div class="contact-box">
+      <div>
+        <h3>Нужна помощь с выбором освещения?</h3>
+        <p>Напишите нам в WhatsApp или Telegram, и мы подскажем подходящую модель, стоимость и варианты под ваш интерьер.</p>
+      </div>
+      <div class="contact-actions">
+        <a href="#" class="btn primary">WhatsApp</a>
+        <a href="#" class="btn">Telegram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">innosvet • premium store concept</footer>
+</body>
+</html>
